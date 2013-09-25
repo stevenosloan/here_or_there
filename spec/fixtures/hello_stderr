@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo 'Hello Stderr' >&2
+exit 500
