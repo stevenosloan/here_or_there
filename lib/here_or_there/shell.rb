@@ -5,7 +5,7 @@ module HereOrThere
       stdout, stderr, status = Open3.capture3(command)
       response = Response.new( stdout, stderr, status )
 
-      yield response.stdout if block_given?
+      yield response if block_given?
 
       return response
     end

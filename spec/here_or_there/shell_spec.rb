@@ -21,14 +21,14 @@ describe HereOrThere::Shell do
     end
   end
 
-  context "when given a block with a single argument" do
-    it "yields stdout" do
-      ret_stdout = ""
-      HereOrThere::Shell.new.run( 'spec/fixtures/hello_stdout' ) do |stdout|
-        ret_stdout = stdout
+  context "when given a block" do
+    it "yields response" do
+      ret = ""
+      HereOrThere::Shell.new.run( 'spec/fixtures/hello_stdout' ) do |response|
+        ret = response
       end
 
-      expect( ret_stdout ).to eq "Hello Stdout\n"
+      expect( ret.class ).to eq HereOrThere::Response
     end
   end
 
