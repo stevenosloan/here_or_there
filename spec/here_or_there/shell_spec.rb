@@ -22,7 +22,7 @@ describe HereOrThere::Shell do
   end
 
   context "when given a block" do
-    it "yields response" do
+    it "yields Response" do
       ret = ""
       HereOrThere::Shell.new.run( 'spec/fixtures/hello_stdout' ) do |response|
         ret = response
@@ -30,11 +30,5 @@ describe HereOrThere::Shell do
 
       expect( ret.class ).to eq HereOrThere::Response
     end
-  end
-
-  context "when given a block with two arguments" do
-  end
-
-  context "when given a block with three arguments" do
   end
 end
