@@ -17,5 +17,13 @@ module HereOrThere
         nil
       end
     end
+
+    def success?
+      if status.respond_to? :success?
+        status.success?
+      else
+        status
+      end
+    end
   end
 end

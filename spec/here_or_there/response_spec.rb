@@ -33,4 +33,25 @@ describe HereOrThere::Response do
     end
   end
 
+  describe "#success?" do
+    context "when status responds to success? (an open3 response)" do
+      it "is truthy when process is success" do
+        ret_succ = HereOrThere::Shell.new.run( 'spec/fixtures/hello_stdout' )
+        expect( ret_succ ).to be_success
+      end
+      it "is falsy when status returns err" do
+        ret_err  = HereOrThere::Shell.new.run( 'spec/fixtures/hello_stderr' )
+        expect( ret_err ).not_to be_success
+      end
+    end
+    context "when status is a boolean (a ssh response)" do
+      it "is truthy when status is true" do
+        expect( HereOrThere::Response.new( 'stdout', 'stderr', true ) ).to be_success
+      end
+      it "is falsy when status is false" do
+        expect( HereOrThere::Response.new( 'stdout', 'stderr', false ) ).not_to be_success
+      end
+    end
+  end
+
 end
