@@ -15,6 +15,9 @@ module HereOrThere
 
         return Response.new( stdout, stderr, status )
       end
+    rescue Net::SSH::AuthenticationFailed
+      close_session
+      return Response.new( '', 'Authentication failed when connecting to remote', Status.new(false) )
     end
 
     def session
@@ -24,6 +27,12 @@ module HereOrThere
 
       return @_session
     end
+
+    private
+
+      def close_session
+        @_session.close unless @_session.nil?
+      end
 
     class Status
       attr_reader :success

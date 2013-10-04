@@ -44,6 +44,25 @@ describe HereOrThere::SSH do
 
     end
 
+    context "when raises Net::SSH::AuthenticationFailed" do
+
+      before :each do
+        allow( @ssh.session ).to receive(:exec!).and_raise(Net::SSH::AuthenticationFailed)
+      end
+
+      it "returns an unsucessful response with err as stderr" do
+        resp = @ssh.run("foo")
+        expect( resp ).not_to be_success
+        expect( resp.stderr ).to eq "Authentication failed when connecting to remote"
+      end
+
+      it "closes the session" do
+        this_session = @ssh.session
+        @ssh.run("foo")
+        expect( @ssh.session ).not_to eq this_session
+      end
+    end
+
   end
 
   describe "#session" do
