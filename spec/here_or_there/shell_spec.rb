@@ -14,7 +14,7 @@ describe HereOrThere::Shell do
 
     it "returns status as return[2]" do
       ret_succ = HereOrThere::Shell.new.run( 'spec/fixtures/hello_stdout' )
-      ret_err = HereOrThere::Shell.new.run( 'spec/fixtures/hello_stderr' )
+      ret_err  = HereOrThere::Shell.new.run( 'spec/fixtures/hello_stderr' )
 
       expect( ret_succ[2] ).to be_success
       expect( ret_err[2] ).not_to be_success
