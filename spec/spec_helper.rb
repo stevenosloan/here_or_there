@@ -4,6 +4,7 @@ require 'byebug'
 
 # rspec support
 require 'support/capture'
+require 'support/stubbed_session'
 
 # library
 require 'here_or_there'
