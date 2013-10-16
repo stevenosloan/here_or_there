@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe HereOrThere::SSH do
+describe HereOrThere::Remote do
 
   describe "#run" do
 

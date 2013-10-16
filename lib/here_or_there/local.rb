@@ -1,5 +1,5 @@
 module HereOrThere
-  class Shell
+  class Local
 
     def run command, &block
       stdout, stderr, status = Open3.capture3(command)
