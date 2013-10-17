@@ -2,6 +2,11 @@ require 'spec_helper'
 
 describe HereOrThere::Local do
   context "when not given a block" do
+
+    it "returns a Response instance" do
+      ret = HereOrThere::Local.new.run( 'spec/fixtures/hello_stdout')
+      expect( ret.is_a? HereOrThere::Response ).to be_true
+    end
     it "returns stdout as return[0]" do
       ret = HereOrThere::Local.new.run( 'spec/fixtures/hello_stdout' )
       expect( ret[0] ).to eq "Hello Stdout\n"
