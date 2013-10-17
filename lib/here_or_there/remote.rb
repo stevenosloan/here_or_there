@@ -19,8 +19,8 @@ module HereOrThere
     end
 
     class SSH
-      attr_accessor :hostname, :user, :options
-      attr_reader   :session
+      attr_reader :hostname, :user, :options
+      attr_reader :session
 
       def initialize options
         @options   = options.dup
@@ -34,6 +34,7 @@ module HereOrThere
         open_session
 
         session.exec! command do |channel, response_type, response_data|
+
           if response_type == :stdout
             stdout = response_data
             status = true
@@ -43,6 +44,11 @@ module HereOrThere
 
           return Response.new( stdout, stderr, status )
         end
+
+        # catch that odd state where no data is returned
+        # but the execution is successful
+        return Response.new( '', '', true )
+
       rescue Net::SSH::AuthenticationFailed
         close_session
         return Response.new( '', 'Authentication failed when connecting to remote', false )

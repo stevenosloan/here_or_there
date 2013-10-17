@@ -75,6 +75,23 @@ describe HereOrThere::Remote do
 
       end
 
+      context "when the block isn't called" do
+        # this happens when there is an empty response
+        # and no error from the remote
+
+        before :each do
+          StubbedSession.any_instance.stub(:exec!).and_return(nil)
+        end
+
+        it "returns an empty successful response" do
+          resp = @ssh.run('foo')
+
+          expect( resp ).to be_success
+          expect( resp.stdout ).to eq ''
+          expect( resp.stderr ).to eq ''
+        end
+      end
+
       context "when raises Net::SSH::AuthenticationFailed" do
 
         before :each do
