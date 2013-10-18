@@ -1,5 +1,7 @@
 Unified interface for ssh or local commands.
 
+[![Build Status](https://travis-ci.org/stevenosloan/here_or_there.png)](https://travis-ci.org/stevenosloan/here_or_there) [![Code Climate](https://codeclimate.com/github/stevenosloan/here_or_there.png)](https://codeclimate.com/github/stevenosloan/here_or_there)
+
 Use
 ---
 
@@ -49,6 +51,16 @@ resp.success?
 
 Response objects respond as you expect they would to `stdout` and `stderr` giving you those values. It also has a `success?` method that will retun a bolean of whether the command exited 0 or not.
 
+### Ruby Support
+
+Slugity is tested against and supports:
+
+- 2.0.0
+- 1.9.3
+- 1.9.2
+- rubinius 2.0
+
+If you have experience with and could help out adding jruby support that would be greatly appreciated.
 
 Testing
 -------
