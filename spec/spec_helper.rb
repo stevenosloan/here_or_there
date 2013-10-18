@@ -1,6 +1,7 @@
 # utils
-require 'pry'
-require 'byebug'
+# nice to have for debugging -- uncomment in gemfile to use
+# require 'pry'
+# require 'byebug'
 
 # rspec support
 require 'support/capture'
