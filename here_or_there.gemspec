@@ -6,8 +6,8 @@ Gem::Specification.new do |s|
   s.version       = HereOrThere::VERSION
   s.platform      = Gem::Platform::RUBY
 
-  s.summary       = ''
-  s.description   = %q{}
+  s.summary       = 'Unified interface for running local and remote commands'
+  s.description   = %q{A unified interface for running local or remote commands. Provides a dependable & identical response from both types of command.}
   s.authors       = ["Steven Sloan"]
   s.email         = ["stevenosloan@gmail.com"]
   s.homepage      = "http://github.com/stevenosloan/here_or_there"
