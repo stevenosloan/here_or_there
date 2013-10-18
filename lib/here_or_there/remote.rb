@@ -54,16 +54,16 @@ module HereOrThere
         return Response.new( '', 'Authentication failed when connecting to remote', false )
       end
 
+      def close_session
+        session.close unless !session || session.closed?
+      end
+
       private
 
         def open_session
           unless session && !session.closed?
             @session = Net::SSH.start hostname, user, options
           end
-        end
-
-        def close_session
-          session.close unless !session || session.closed?
         end
 
     end

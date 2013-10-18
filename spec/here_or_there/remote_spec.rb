@@ -111,6 +111,15 @@ describe HereOrThere::Remote do
         end
       end
     end
+
+    describe "#close_session" do
+      it "closes the session" do
+        @ssh.send(:open_session)
+        expect( @ssh.session ).not_to be_closed
+        @ssh.close_session
+        expect( @ssh.session ).to be_closed
+      end
+    end
   end
 
 end
