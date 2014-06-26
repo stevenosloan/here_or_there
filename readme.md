@@ -53,11 +53,10 @@ Response objects respond as you expect they would to `stdout` and `stderr` givin
 
 ### Ruby Support
 
-Slugity is tested against and supports:
+Here or There is tested against and supports:
 
 - 2.0.0
 - 1.9.3
-- 1.9.2
 - rubinius 2.0
 
 If you have experience with and could help out adding jruby support that would be greatly appreciated.
