@@ -1,3 +1,4 @@
+# 0.1.2
 - fix occasional LocalJumpError in Remote::SSH#run
 
 # 0.1.1
