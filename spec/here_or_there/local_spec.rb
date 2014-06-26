@@ -5,7 +5,7 @@ describe HereOrThere::Local do
 
     it "returns a Response instance" do
       ret = HereOrThere::Local.new.run( 'spec/fixtures/hello_stdout')
-      expect( ret.is_a? HereOrThere::Response ).to be_true
+      expect( ret.is_a? HereOrThere::Response ).to be_truthy
     end
     it "returns stdout as return.stdout" do
       ret = HereOrThere::Local.new.run( 'spec/fixtures/hello_stdout' )
@@ -19,12 +19,12 @@ describe HereOrThere::Local do
 
     it "returns a successful status for a successful command" do
       ret_succ = HereOrThere::Local.new.run( 'spec/fixtures/hello_stdout' )
-      expect( ret_succ.success? ).to be_true
+      expect( ret_succ.success? ).to be_truthy
     end
 
     it "returns an unsuccessful status for an unsuccessful command" do
       ret_err  = HereOrThere::Local.new.run( 'spec/fixtures/hello_stderr' )
-      expect( ret_err.success? ).to be_false
+      expect( ret_err.success? ).to be_falsy
     end
   end
 

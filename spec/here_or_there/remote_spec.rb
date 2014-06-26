@@ -3,7 +3,8 @@ require 'spec_helper'
 describe HereOrThere::Remote do
 
   before :each do
-    Net::SSH.stub( start: StubbedSession.new )
+    allow( Net::SSH ).to receive(:start)
+                     .and_return( StubbedSession.new )
   end
 
   describe "::session" do
@@ -17,7 +18,7 @@ describe HereOrThere::Remote do
     it "creates an SSH object" do
       expect(
         HereOrThere::Remote.session( hostname: 'foo', user: 'bar' ).is_a?(HereOrThere::Remote::SSH)
-      ).to be_true
+      ).to be_truthy
     end
 
     it "doesn't recreate an instance" do
@@ -40,13 +41,14 @@ describe HereOrThere::Remote do
 
     describe "#run" do
       it "returns a response object" do
-        expect( @ssh.run("foo").is_a? HereOrThere::Response ).to be_true
+        expect( @ssh.run("foo").is_a? HereOrThere::Response ).to be_truthy
       end
 
       context "when response is stdout" do
 
         before :each do
-          StubbedSession.any_instance.stub(:exec!).and_yield("foo", :stdout, "hello stdout")
+          allow_any_instance_of( StubbedSession ).to receive(:exec!)
+                                                 .and_yield("foo", :stdout, "hello stdout")
         end
 
         it "assigns response_data to Response.stdout" do
@@ -62,7 +64,8 @@ describe HereOrThere::Remote do
       context "when response is stderr" do
 
         before :each do
-          StubbedSession.any_instance.stub(:exec!).and_yield("foo", :stderr, "hello stderr")
+          allow_any_instance_of( StubbedSession ).to receive(:exec!)
+                                                 .and_yield("foo", :stderr, "hello stderr")
         end
 
         it "assigns response_data to Response.stderr" do
@@ -80,7 +83,8 @@ describe HereOrThere::Remote do
         # and no error from the remote
 
         before :each do
-          StubbedSession.any_instance.stub(:exec!).and_return(nil)
+          allow_any_instance_of( StubbedSession ).to receive(:exec!)
+                                                 .and_return(nil)
         end
 
         it "returns an empty successful response" do
@@ -95,7 +99,8 @@ describe HereOrThere::Remote do
       context "when raises Net::SSH::AuthenticationFailed" do
 
         before :each do
-          StubbedSession.any_instance.stub(:exec!).and_raise(Net::SSH::AuthenticationFailed)
+          allow_any_instance_of( StubbedSession ).to receive(:exec!)
+                                                 .and_raise(Net::SSH::AuthenticationFailed)
         end
 
         it "returns an unsucessful response with err as stderr" do

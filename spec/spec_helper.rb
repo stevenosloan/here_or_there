@@ -41,7 +41,7 @@ describe "fixtures" do
 
     it "returns success code" do
       stdout, stderr, status = Open3.capture3('spec/fixtures/hello_stdout')
-      expect( status.success? ).to be_true
+      expect( status.success? ).to be_truthy
     end
   end
 
@@ -53,7 +53,7 @@ describe "fixtures" do
 
     it "returns error code" do
       stdout, stderr, status = Open3.capture3('spec/fixtures/hello_stderr')
-      expect( status.success? ).to be_false
+      expect( status.success? ).to be_falsy
     end
   end
 
