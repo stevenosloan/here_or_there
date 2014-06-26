@@ -29,7 +29,7 @@ module HereOrThere
       end
 
       def run command
-        stdout, stderr, status = [ '', '', false ]
+        stdout, stderr, status = [ '', '', true ]
 
         open_session
 
@@ -40,14 +40,12 @@ module HereOrThere
             status = true
           else
             stderr = response_data
+            status = false
           end
 
-          return Response.new( stdout, stderr, status )
         end
 
-        # catch that odd state where no data is returned
-        # but the execution is successful
-        return Response.new( '', '', true )
+        return Response.new( stdout, stderr, status )
 
       rescue Net::SSH::AuthenticationFailed
         close_session
