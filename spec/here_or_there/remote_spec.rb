@@ -78,6 +78,50 @@ describe HereOrThere::Remote do
 
       end
 
+      context "when response gets chunked" do
+        let(:session_double) { instance_double("Net::SSH::Connection::Session", closed?: false) }
+        before :each do
+          allow( Net::SSH ).to receive(:start)
+                           .and_return( session_double )
+         end
+
+        it "returns the full stdout if it gets chunked" do
+          allow( session_double ).to receive(:exec!)
+                                 .and_yield("foo", :stdout, "hello stdout")
+                                 .and_yield("foo", :stdout, "hello stdout")
+
+          expect( @ssh.run("foo").stdout ).to eq "hello stdouthello stdout"
+        end
+
+        it "returns the full stderr if it gets chunked" do
+          allow( session_double ).to receive(:exec!)
+                                 .and_yield("foo", :stderr, "hello stderr")
+                                 .and_yield("foo", :stderr, "hello stderr")
+
+          expect( @ssh.run("foo").stderr ).to eq "hello stderrhello stderr"
+        end
+
+        it "returns false with stdout & stderr if an error is given" do
+          allow( session_double ).to receive(:exec!)
+                                 .and_yield("foo", :stdout, "hello stdout")
+                                 .and_yield("foo", :stderr, "hello stderr")
+
+          resp = @ssh.run("foo")
+          expect( resp.stderr ).to eq "hello stderr"
+          expect( resp.stdout ).to eq "hello stdout"
+          expect( resp ).not_to be_success
+
+          allow( session_double ).to receive(:exec!)
+                                 .and_yield("foo", :stderr, "hello stderr")
+                                 .and_yield("foo", :stdout, "hello stdout")
+
+          resp = @ssh.run("foo")
+          expect( resp.stderr ).to eq "hello stderr"
+          expect( resp.stdout ).to eq "hello stdout"
+          expect( resp ).not_to be_success
+        end
+      end
+
       context "when the block isn't called" do
         # this happens when there is an empty response
         # and no error from the remote

@@ -36,10 +36,9 @@ module HereOrThere
         session.exec! command do |channel, response_type, response_data|
 
           if response_type == :stdout
-            stdout = response_data
-            status = true
+            stdout << response_data
           else
-            stderr = response_data
+            stderr << response_data
             status = false
           end
 
