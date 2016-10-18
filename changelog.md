@@ -1,3 +1,4 @@
+- require ruby 2.0+
 - loosen net-ssh requirement to allow running on ruby 2.3+ w/o deprecatino warnings
 
 # 0.2.0

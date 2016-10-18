@@ -5,6 +5,7 @@ Gem::Specification.new do |s|
   s.name          = 'here_or_there'
   s.version       = HereOrThere::VERSION
   s.platform      = Gem::Platform::RUBY
+  s.required_ruby_version = [">= 2.0", "< 3"]
 
   s.summary       = 'Unified interface for running local and remote commands'
   s.description   = %q{A unified interface for running local or remote commands. Provides a dependable & identical response from both types of command.}
