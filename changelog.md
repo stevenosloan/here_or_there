@@ -1,3 +1,5 @@
+- loosen net-ssh requirement to allow running on ruby 2.3+ w/o deprecatino warnings
+
 # 0.2.0
 - stderr & stdout now get appended to for each stream for remote commands, so you'll get the full response.
 
